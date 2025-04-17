@@ -248,10 +248,6 @@ def send_sms_to_lifeguards(video_id):
             print(f"❌ SMS to {phone} failed: {str(e)}")
     cursor.close()
 
-@app.route("/", methods=["GET"])
-def index():
-    return jsonify({"message": "👋 Flask backend is running!"})
-
 
 if __name__ == "__main__":
     print("🚀 Starting Flask with WebSockets on port 5001...")
