@@ -5,6 +5,11 @@ flask-socketio
 gunicorn
 psycopg2-binary
 
+setuptools
+wheel
+build
+
+
 # Twilio for SMS
 twilio
 
