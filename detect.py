@@ -218,7 +218,7 @@ def detect():
     data = request.get_json()
     if not data or "videoId" not in data:
         return jsonify({"error": "No video ID provided"}), 400
-    return jsonify({"stream_url": f"http://127.0.0.1:5001/detect-stream/{data['videoId']}"})
+    return jsonify({"stream_url": f"https://drowning-flask.onrender.com/detect-stream/{data['videoId']}"})
 
 @app.route("/detect-stream/<video_id>", methods=["GET"])
 def detect_stream(video_id):
