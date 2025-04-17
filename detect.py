@@ -248,7 +248,6 @@ def send_sms_to_lifeguards(video_id):
             print(f"❌ SMS to {phone} failed: {str(e)}")
     cursor.close()
 
-
 if __name__ == "__main__":
-    print("🚀 Starting Flask with WebSockets on port 5001...")
-    socketio.run(app, host="0.0.0.0", port=5001,allow_unsafe_werkzeug=True)
+    port = int(os.environ.get("PORT", 5001))
+    socketio.run(app, host="0.0.0.0", port=port,allow_unsafe_werkzeug=True)
