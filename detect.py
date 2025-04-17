@@ -197,21 +197,27 @@ def get_latest_alert():
     cursor.close()
     return jsonify({"video_id": latest_alert[0] if latest_alert else None})
 
+
 @app.route("/alerts", methods=["GET"])
 def get_alert_logs():
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM alert_logs ORDER BY timestamp DESC")
-    logs = cursor.fetchall()
-    cursor.close()
-    return jsonify([
-        {
-            "id": log[0],
-            "timestamp": log[1],
-            "supervisor_id": log[2],
-            "video_id": log[3],
-            "lifeguard_id": log[4]
-        } for log in logs
-    ])
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM alert_logs ORDER BY timestamp DESC")
+        logs = cursor.fetchall()
+        cursor.close()
+
+        return jsonify([
+            {
+                "id": log[0],
+                "timestamp": log[1],
+                "supervisor_id": log[2],
+                "video_id": log[3],
+                "lifeguard_id": log[4]
+            } for log in logs
+        ])
+    except Exception as e:
+        print("❌ Error in /alerts route:", str(e))  # 👈 Check logs on Render
+        return jsonify({"error": "Server error", "details": str(e)}), 500
 
 @app.route("/detect", methods=["POST"])
 def detect():
