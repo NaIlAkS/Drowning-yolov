@@ -12,7 +12,7 @@ import traceback
 from PIL import Image
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])
+CORS(app, origins=["http://localhost:5173","https://frontend-mtkt.onrender.com"])
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 
