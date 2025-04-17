@@ -219,31 +219,7 @@ def detect():
     if not data or "videoId" not in data:
         return jsonify({"error": "No video ID provided"}), 400
     return jsonify({"stream_url": f"https://drowning-flask.onrender.com/detect-stream/{data['videoId']}"})
-    def send_sms_to_lifeguards(video_id):
-    cursor = conn.cursor()
 
-    # ✅ Fetch lifeguard phone numbers
-    cursor.execute("SELECT id, phone_number FROM lifeguard")
-    lifeguards = cursor.fetchall()
-
-    message_text = f"🚨 Alert detected! Watch the video on your page. Video ID: {video_id}"
-
-    for lifeguard_id, phone_number in lifeguards:
-        formatted_phone = f"+91{phone_number}"  # ✅ Ensure country code for India
-
-        try:
-            client.messages.create(
-                body=message_text,
-                from_=TWILIO_PHONE_NUMBER,
-                to=formatted_phone
-            )
-
-            print(f"📩 SMS Sent to Lifeguard {lifeguard_id} at {formatted_phone}")
-
-        except Exception as e:
-            print(f"❌ Failed to send SMS to {formatted_phone}: {str(e)}")
-
-    cursor.close()
 
 @app.route("/detect-stream/<video_id>", methods=["GET"])
 def detect_stream(video_id):
